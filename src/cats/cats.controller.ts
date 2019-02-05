@@ -1,35 +1,30 @@
-import { Controller, Get, Req, Param, Post, Query } from '@nestjs/common';
-import { create } from 'domain';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
+    @Post()
+    create(@Body() createCatDto) {
+        console.log(createCatDto)
+        return 'This action adds a new cat';
+    }
 
-    // standard
-    /*@Get(':id')
-    findOne(@Param() params) {
-        console.log(params.id);
-        return `This action returns a #${params.id} cat`;
-    }*/
+    @Get()
+    findAll(@Query() query) {
+        return `This action returns all cats (limit: ${query.limit} items)`;
+    }
 
-    //spesific
     @Get(':id')
     findOne(@Param('id') id) {
         return `This action returns a #${id} cat`;
     }
 
-    /*
+    @Put(':id')
+    update(@Param('id') id, @Body() updateCatDto) {
+        return `This action updates a #${id} cat`;
+    }
 
-        use @Query() to fetch all queryparams
-        use @Query('name_of_query') to fetch spesific queryparam
-
-    */
-   
-    @Get()
-    find(@Query('test') q) {
-        console.log(q)
-        if (q)
-            return `This action returns a ${q} cat`;
-        else
-            return `This action returns not a test cat`;
+    @Delete(':id')
+    remove(@Param('id') id) {
+        return `This action removes a #${id} cat`;
     }
 }
