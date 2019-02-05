@@ -4,7 +4,8 @@ import { CatsService } from './cats.service';
 
 @Global()
 @Module({
-  controllers: [CatsController],
-  providers: [CatsService]
+    controllers: [CatsController],
+    providers: [CatsService],
+    exports: [CatsService]
 })
-export class CatsModule {}
+export class CatsModule { }
